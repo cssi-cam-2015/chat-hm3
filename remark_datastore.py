@@ -8,7 +8,7 @@ blue=(59,62,172)
 orange=(255,153,0)
 black=(0,0,0)
 white(255,255,255)
-color_list=(red,blue,orange,black,white)
+color_list=[red,blue,orange,black,white]
 color=random.choice(color_list)
 
 
@@ -39,13 +39,21 @@ def ReadRemarks(user_id):
   # Query the datastore for remarks. Only get remarks posted since the last time
   # this user checked (Remark.timestamp >= start_time). Order them by when they
   # were posted. Return the results as a list of tuples with (user, text, color).
+<<<<<<< HEAD
   remarks = []
   query = Remark.query(Remark.timestamp >= start_time).order(Remark.timestamp)
   for remark in query.fetch():
     # TODO(cssi-cam-2015) Randomize the color so that each remark is different.
     remarks.append((remark.user, remark.text, color))
+=======
+>>>>>>> 7b06b5810887f69168a045e61b41805757a8f8a3
 
-  return remarks
+  # TODO(cssi-cam-2015) Randomize the color so that each remark is different.
+  return [
+      (remark.user, remark.text, 'black')
+      for remark
+      in Remark.query(
+          Remark.timestamp >= start_time).order(Remark.timestamp).fetch()]
 
 
 def PostRemark(user, text):
